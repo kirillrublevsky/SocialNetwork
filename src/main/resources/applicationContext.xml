@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="bikes" class="com.network.model.Hobby" scope="prototype">
+        <property name="title" value="bikes"/>
+        <property name="description" value="I like travelling by bike"/>
+    </bean>
+
+    <bean id="cooking" class="com.network.model.Hobby" scope="prototype">
+        <property name="title" value="cooking"/>
+        <property name="description" value="I like to cook delicious meals"/>
+    </bean>
+
+    <bean id="paris" class="com.network.model.Place" scope="prototype">
+        <property name="title" value="Paris"/>
+        <property name="description" value="The city of love"/>
+        <property name="latitude" value="100"/>
+        <property name="longitude" value="200"/>
+    </bean>
+
+    <bean id="kiev" class="com.network.model.Place" scope="prototype">
+        <property name="title" value="Kiev"/>
+        <property name="description" value="The capital of Ukraine"/>
+        <property name="latitude" value="300"/>
+        <property name="longitude" value="500"/>
+    </bean>
+
+    <bean id="scottBirth" class="org.joda.time.LocalDate" factory-method="parse">
+        <constructor-arg index="0" value="01-12-14" />
+    </bean>
+
+    <bean id="scott" class="com.network.model.Contact" scope="prototype">
+        <property name="firstName" value="Bon"/>
+        <property name="lastName" value="Scott"/>
+        <property name="birthDate" ref="scottBirth"/>
+        <property name="hobbies" >
+            <set>
+                <ref bean="bikes"/>
+                <ref bean="cooking"/>
+            </set>
+        </property>
+        <property name="places" >
+            <set>
+                <ref bean="paris"/>
+                <ref bean="kiev"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="contactDao" class="com.network.dao.ContactDaoImpl">
+        <property name="contacts">
+            <set>
+                <ref bean="scott"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="hobbyDao" class="com.network.dao.HobbyDaoImpl">
+        <property name="hobbies">
+            <set>
+                <ref bean="bikes"/>
+                <ref bean="cooking"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="placeDao" class="com.network.dao.PlaceDaoImpl">
+        <property name="places">
+            <set>
+                <ref bean="paris"/>
+                <ref bean="kiev"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="javaContactService" class="com.network.service.JavaContactServiceImpl">
+        <property name="contactDao" ref="contactDao"/>
+        <property name="hobbyDao" ref="hobbyDao"/>
+        <property name="placeDao" ref="placeDao"/>
+    </bean>
+
+</beans>
