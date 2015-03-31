@@ -66,6 +66,7 @@
                 <ref bean="cooking"/>
             </set>
         </property>
+        <property name="contactDao" ref="contactDao"/>
     </bean>
 
     <bean id="placeDao" class="com.network.dao.PlaceDaoImpl">
@@ -75,6 +76,7 @@
                 <ref bean="kiev"/>
             </set>
         </property>
+        <property name="contactDao" ref="contactDao"/>
     </bean>
 
     <bean id="javaContactService" class="com.network.service.JavaContactServiceImpl">

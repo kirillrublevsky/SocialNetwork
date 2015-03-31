@@ -8,11 +8,21 @@ public class Hobby {
     public Hobby() {}
 
     public void setTitle(String title) {
+        if (!isNull(title)){
+            throw new IllegalArgumentException();
+        }
         this.title = title;
     }
 
     public void setDescription(String description) {
+        if (!isNull(description)){
+            throw new IllegalArgumentException();
+        }
         this.description = description;
+    }
+
+    private boolean isNull(Object object){
+        return object != null;
     }
 
     @Override

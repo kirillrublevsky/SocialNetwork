@@ -10,19 +10,35 @@ public class Place {
     public Place() {}
 
     public void setTitle(String title) {
+        if (!isNull(title)){
+            throw new IllegalArgumentException();
+        }
         this.title = title;
     }
 
     public void setLongitude(double longitude) {
+        if (longitude == 0){
+            throw new IllegalArgumentException();
+        }
         this.longitude = longitude;
     }
 
     public void setLatitude(double latitude) {
+        if (latitude == 0){
+            throw new IllegalArgumentException();
+        }
         this.latitude = latitude;
     }
 
     public void setDescription(String description) {
+        if (!isNull(description)){
+            throw new IllegalArgumentException();
+        }
         this.description = description;
+    }
+
+    private boolean isNull(Object object){
+        return object != null;
     }
 
     @Override

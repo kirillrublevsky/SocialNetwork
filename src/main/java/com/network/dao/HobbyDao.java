@@ -8,7 +8,7 @@ import java.util.Set;
 public interface HobbyDao {
 
     void addHobby(Hobby hobby);
-    Set<Contact> getAllContactsWithHobby(Hobby hobby, Set<Contact> contacts);
+    Set<Contact> getAllContactsWithHobby(Hobby hobby);
     void addHobbyToContact(Hobby hobby, Contact contact);
 
     Set<Hobby> getHobbies();

@@ -11,7 +11,17 @@ public class PlaceDaoImpl implements PlaceDao {
 
     private Set<Place> places;
 
+    private ContactDao contactDao;
+
     public PlaceDaoImpl() {}
+
+    public ContactDao getContactDao() {
+        return contactDao;
+    }
+
+    public void setContactDao(ContactDao contactDao) {
+        this.contactDao = contactDao;
+    }
 
     public void setPlaces(Set<Place> places) {
         this.places = places;
@@ -28,8 +38,9 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public Set<Contact> getAllContactsWithPlace(Place place, Set<Contact> contacts) {
+    public Set<Contact> getAllContactsWithPlace(Place place) {
         Set<Contact> contactSet = new HashSet<Contact>();
+        Set<Contact> contacts = contactDao.getContacts();
         Iterator<Contact> iterator = contacts.iterator();
         while (iterator.hasNext()){
             Contact contact = iterator.next();

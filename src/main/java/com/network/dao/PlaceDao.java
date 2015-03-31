@@ -9,7 +9,7 @@ import java.util.Set;
 public interface PlaceDao {
 
     void addPlace(Place place);
-    Set<Contact> getAllContactsWithPlace(Place place, Set<Contact> contacts);
+    Set<Contact> getAllContactsWithPlace(Place place);
     void addPlaceToContact(Place place, Contact contact);
 
     Set<Place> getPlaces();

@@ -29,7 +29,7 @@ public class Application {
         HobbyDao hobbyDao = context.getBean("hobbyDao", HobbyDaoImpl.class);
         ContactDao contactDao = context.getBean("contactDao", ContactDaoImpl.class);
         System.out.println("All contacts with hobby 'bikes':");
-        System.out.println(hobbyDao.getAllContactsWithHobby(bikes, contactDao.getContacts()));
+        System.out.println(hobbyDao.getAllContactsWithHobby(bikes));
 
 
 
