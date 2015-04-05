@@ -11,6 +11,7 @@ import com.network.service.JavaContactServiceImpl;
 import org.joda.time.LocalDate;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -20,7 +21,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
@@ -97,16 +101,34 @@ public class JavaContactServiceTest {
         verify(mockHobbyDao).addHobby(eq(hobby));
     }
 
+//    @Test
+//    public void testAddHobbyCausesContactGetHobbies(){
+//        String title = "soccer";
+//        String description = "Playing soccer is cool!";
+//        Contact contact = new Contact();
+//        Contact spyContact = spy(contact);
+//
+//        service.addHobby(spyContact, title, description);
+//        verify(spyContact).getHobbies();
+//    }
+
     @Test
-    public void testAddHobbyCausesContactGetHobbies(){
+    public void testAddHobbyAddsHobbyToContact(){
         String title = "soccer";
         String description = "Playing soccer is cool!";
+        Hobby hobby = new Hobby();
+        hobby.setTitle(title);
+        hobby.setDescription(description);
+
+        Set<Hobby> hobbies = new HashSet<Hobby>();
+        hobbies.add(hobby);
+
         Contact contact = new Contact();
         Contact spyContact = spy(contact);
-
         service.addHobby(spyContact, title, description);
-        verify(spyContact).getHobbies();
-      //verify(spyContact).getHobbies().add(hobby); -вылетает NullPointerException, отя у меня в геттере Contact есть защита
+
+        assertThat(hobbies, is(equalTo(spyContact.getHobbies())));
+
     }
 
     @Test(expected = NullPointerException.class)
@@ -150,17 +172,40 @@ public class JavaContactServiceTest {
         verify(mockPlaceDao).addPlace(eq(place));
     }
 
+//    @Test
+//    public void testAddPlaceCausesContactGetPlaces(){
+//        String title = "Beijing";
+//        String description = "Beijing is the capital of China";
+//        double longitude = 10;
+//        double latitude = 30;
+//        Contact contact = new Contact();
+//        Contact spyContact = spy(contact);
+//
+//        service.addPlace(spyContact, title, description, longitude, latitude);
+//        verify(spyContact).getPlaces();
+//    }
+
     @Test
-    public void testAddPlaceCausesContactGetPlaces(){
+    public void testAddPlaceAddsPlaceToContact(){
         String title = "Beijing";
         String description = "Beijing is the capital of China";
         double longitude = 10;
         double latitude = 30;
+        Place place = new Place();
+        place.setTitle(title);
+        place.setDescription(description);
+        place.setLatitude(latitude);
+        place.setLongitude(longitude);
+
+        Set<Place> places = new HashSet<Place>();
+        places.add(place);
+
         Contact contact = new Contact();
         Contact spyContact = spy(contact);
-
         service.addPlace(spyContact, title, description, longitude, latitude);
-        verify(spyContact).getPlaces();
+
+        assertThat(places, is(equalTo(spyContact.getPlaces())));
+
     }
 
     @Test(expected = NullPointerException.class)
@@ -228,7 +273,7 @@ public class JavaContactServiceTest {
         Contact contact = new Contact();
         Contact friend = new Contact();
 
-        service.addFriendship(contact, friend);
+        service.addFriendship(null, friend);
     }
 
     @Test
@@ -245,31 +290,21 @@ public class JavaContactServiceTest {
         service.getFriendsList(null);
     }
 
-    @Ignore
     @Test
     public void testGetFriendsListForNotEmptyList(){
         Contact jim = new Contact();
-        jim.setFirstName("Jim");
-
         Contact rob = new Contact();
-        rob.setFirstName("Rob");
+        service.addFriendship(jim, rob);
 
-        Contact sam = new Contact();
-        sam.setFirstName("Sam");
+        ArgumentCaptor<Contact> firstContactCaptor = ArgumentCaptor.forClass(Contact.class);
+        ArgumentCaptor<Contact> secondContactCaptor = ArgumentCaptor.forClass(Contact.class);
+        verify(mockContactDao).addFriendship(firstContactCaptor.capture(), secondContactCaptor.capture());
 
-        JavaContactService javaContactService = new JavaContactServiceImpl();
-        JavaContactService spyService = spy(javaContactService);
+        Contact jimCaptor = firstContactCaptor.getValue();
+        Contact robCaptor = secondContactCaptor.getValue();
 
-        spyService.addFriendship(jim, rob);
-        spyService.addFriendship(jim, sam);
-        spyService.addFriendship(rob, sam);
-
-        Set<Contact> jimsFriends = new HashSet<Contact>();
-        jimsFriends.add(rob);
-        jimsFriends.add(sam);
-
-        assertEquals(jimsFriends, spyService.getFriendsList(jim));
-
+        assertThat(jimCaptor, is(equalTo(jim)));
+        assertThat(robCaptor, is(equalTo(rob)));
     }
 
 
