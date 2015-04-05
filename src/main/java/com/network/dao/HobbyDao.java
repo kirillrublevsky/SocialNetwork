@@ -11,5 +11,5 @@ public interface HobbyDao {
     Set<Contact> getAllContactsWithHobby(Hobby hobby);
     void addHobbyToContact(Hobby hobby, Contact contact);
 
-    Set<Hobby> getHobbies();
+    Set<Hobby> getAllHobbies();
 }

@@ -10,5 +10,5 @@ public interface ContactDao {
     void deleteContact(Contact contact);
     void addFriendship(Contact contact, Contact friend);
     void removeFriendship(Contact contact, Contact friend);
-    Set<Contact> getContacts();
+    Set<Contact> getAllContacts();
 }

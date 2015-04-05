@@ -12,5 +12,5 @@ public interface PlaceDao {
     Set<Contact> getAllContactsWithPlace(Place place);
     void addPlaceToContact(Place place, Contact contact);
 
-    Set<Place> getPlaces();
+    Set<Place> getAllPlaces();
 }

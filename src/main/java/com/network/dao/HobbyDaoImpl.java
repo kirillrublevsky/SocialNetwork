@@ -28,7 +28,7 @@ public class HobbyDaoImpl implements HobbyDao {
     }
 
     @Override
-    public Set<Hobby> getHobbies() {
+    public Set<Hobby> getAllHobbies() {
         return hobbies;
     }
 
@@ -41,7 +41,7 @@ public class HobbyDaoImpl implements HobbyDao {
     @Override
     public Set<Contact> getAllContactsWithHobby(Hobby hobby) {
         Set<Contact> contactSet = new HashSet<Contact>();
-        Set<Contact> contacts = contactDao.getContacts();
+        Set<Contact> contacts = contactDao.getAllContacts();
         Iterator<Contact> iterator = contacts.iterator();
         while (iterator.hasNext()){
             Contact contact = iterator.next();

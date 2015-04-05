@@ -15,7 +15,7 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
-    public Set<Contact> getContacts() {
+    public Set<Contact> getAllContacts() {
         return contacts;
     }
 
