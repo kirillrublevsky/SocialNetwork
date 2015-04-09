@@ -5,13 +5,19 @@ import com.network.model.Contact;
 import com.network.model.Hobby;
 import com.network.model.Place;
 import org.joda.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
 public class JavaContactServiceImpl implements JavaContactService {
 
+    @Autowired
     private ContactDao contactDao;
+
+    @Autowired
     private HobbyDao hobbyDao;
+
+    @Autowired
     private PlaceDao placeDao;
 
     public JavaContactServiceImpl() {}

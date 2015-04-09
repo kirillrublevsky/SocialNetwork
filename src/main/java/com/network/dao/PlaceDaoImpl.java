@@ -2,15 +2,19 @@ package com.network.dao;
 
 import com.network.model.Contact;
 import com.network.model.Place;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+@Repository
 public class PlaceDaoImpl implements PlaceDao {
 
     private Set<Place> places;
 
+    @Autowired
     private ContactDao contactDao;
 
     public PlaceDaoImpl() {}

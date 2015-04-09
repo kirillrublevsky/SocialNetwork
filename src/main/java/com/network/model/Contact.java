@@ -2,19 +2,50 @@ package com.network.model;
 
 import org.joda.time.LocalDate;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Contact {
+@Entity
+@Table(name = "contact")
+public class Contact implements Serializable {
 
+    @Id
+    @Column(name = "contact_id")
+    @GeneratedValue
+    private long id;
+
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    @ManyToMany
+    @JoinTable(name="contact_hobby",
+            joinColumns = @JoinColumn(name="contact_id"),
+            inverseJoinColumns = @JoinColumn(name="hobby_id"))
     private Set<Hobby> hobbies;
+
+    @ManyToMany
+    @JoinTable(name="contact_place",
+            joinColumns = @JoinColumn(name="contact_id", referencedColumnName="id"),
+            inverseJoinColumns = @JoinColumn(name="place_id", referencedColumnName="id"))
     private Set<Place> places;
-    private Set<Contact> friends;
+
+//    private Set<Contact> friends;
 
     public Contact() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public void setFirstName(String firstName) {
         if (!isNull(firstName)){
@@ -45,9 +76,9 @@ public class Contact {
         this.places = places;
     }
 
-    public void setFriends(Set<Contact> friends) {
-        this.friends = friends;
-    }
+//    public void setFriends(Set<Contact> friends) {
+//        this.friends = friends;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -75,24 +106,15 @@ public class Contact {
         return places;
     }
 
-    public Set<Contact> getFriends() {
-        if(friends == null){
-            friends = new HashSet<Contact>();
-        }
-        return friends;
-    }
+//    public Set<Contact> getFriends() {
+//        if(friends == null){
+//            friends = new HashSet<Contact>();
+//        }
+//        return friends;
+//    }
 
     private boolean isNull(Object object){
         return object != null;
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                '}';
     }
 
     @Override
@@ -102,21 +124,26 @@ public class Contact {
 
         Contact contact = (Contact) o;
 
-        if (birthDate != null ? !birthDate.equals(contact.birthDate) : contact.birthDate != null) return false;
-        if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null) return false;
-        if (friends != null ? !friends.equals(contact.friends) : contact.friends != null) return false;
-        if (hobbies != null ? !hobbies.equals(contact.hobbies) : contact.hobbies != null) return false;
-        if (lastName != null ? !lastName.equals(contact.lastName) : contact.lastName != null) return false;
-        if (places != null ? !places.equals(contact.places) : contact.places != null) return false;
+        if (id != contact.id) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
-        return result;
+        return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", hobbies=" + hobbies +
+                ", places=" + places +
+              //  ", friends=" + friends +
+                '}';
     }
 }
