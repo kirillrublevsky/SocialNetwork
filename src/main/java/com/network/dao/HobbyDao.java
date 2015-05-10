@@ -1,15 +1,15 @@
 package com.network.dao;
 
-import com.network.model.Contact;
-import com.network.model.Hobby;
+import com.network.dao.entity.Contact;
+import com.network.dao.entity.Hobby;
 
-import java.util.Set;
+import java.util.List;
 
 public interface HobbyDao {
 
     void addHobby(Hobby hobby);
-    Set<Contact> getAllContactsWithHobby(Hobby hobby);
-    void addHobbyToContact(Hobby hobby, Contact contact);
-
-    Set<Hobby> getAllHobbies();
+    void deleteHobby(long hobbyId);
+    List<Contact> getAllContactsWithHobby(long hobbyId);
+    void addHobbyToContact(long hobbyId, long contactId);
+    List<Hobby> getAllHobbies();
 }

@@ -26,22 +26,38 @@ CREATE TABLE hobby (
      , description VARCHAR(99) NOT NULL
 );
 
+CREATE TABLE message (
+    message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+  , date DATETIME NOT NULL DEFAULT NOW()
+  , from_contact INT NOT NULL
+  , to_contact INT NOT NULL
+  , content VARCHAR(99) NOT NULL
+  , FOREIGN KEY (from_contact) REFERENCES contact (contact_id)
+);
+
 CREATE TABLE contact_hobby (
        contact_id INT NOT NULL
      , hobby_id INT NOT NULL
      , PRIMARY KEY (contact_id, hobby_id)
-     , CONSTRAINT fk_contact FOREIGN KEY (contact_id) REFERENCES contact (contact_id)
-     , CONSTRAINT fk_hobby FOREIGN KEY (hobby_id) REFERENCES hobby (hobby_id)
+     , FOREIGN KEY (contact_id) REFERENCES contact (contact_id)
+     , FOREIGN KEY (hobby_id) REFERENCES hobby (hobby_id)
 );
 
 CREATE TABLE contact_place (
        contact_id INT NOT NULL
      , place_id INT NOT NULL
      , PRIMARY KEY (contact_id, place_id)
-     , CONSTRAINT fk_contact FOREIGN KEY (contact_id) REFERENCES contact (contact_id)
-     , CONSTRAINT fk_place FOREIGN KEY (place_id) REFERENCES place (place_id)
+     , FOREIGN KEY (contact_id) REFERENCES contact (contact_id)
+     , FOREIGN KEY (place_id) REFERENCES place (place_id)
 );
 
+CREATE TABLE contact_friend (
+    contact_id INT NOT NULL
+  , friend_id INT NOT NULL
+  , PRIMARY KEY (contact_id, friend_id)
+  , FOREIGN KEY (contact_id) REFERENCES contact (contact_id)
+  , FOREIGN KEY (friend_id) REFERENCES contact (contact_id)
+);
 
 
 

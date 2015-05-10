@@ -1,16 +1,15 @@
 package com.network.dao;
 
-import com.network.model.Contact;
-import com.network.model.Hobby;
-import com.network.model.Place;
+import com.network.dao.entity.Contact;
+import com.network.dao.entity.Place;
 
-import java.util.Set;
+import java.util.List;
 
 public interface PlaceDao {
 
     void addPlace(Place place);
-    Set<Contact> getAllContactsWithPlace(Place place);
-    void addPlaceToContact(Place place, Contact contact);
-
-    Set<Place> getAllPlaces();
+    void deletePlace(long placeId);
+    List<Contact> getAllContactsWithPlace(long placeId);
+    void addPlaceToContact(long placeId, long contactId);
+    List<Place> getAllPlaces();
 }

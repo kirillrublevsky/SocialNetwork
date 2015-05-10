@@ -1,27 +1,15 @@
 package com.network.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
-@Entity
-@Table(name = "hobby")
-public class Hobby implements Serializable{
+public class HobbyDTO implements Serializable {
 
-    @Id
-    @Column(name = "hobby_id")
-    @GeneratedValue
     private long id;
 
-    @Column(name = "title")
     private String title;
-    @Column(name = "description")
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "hobbies")
-    private Set<Contact> contacts;
-
-    public Hobby() {}
+    public HobbyDTO() {}
 
     public long getId() {
         return id;
@@ -37,14 +25,6 @@ public class Hobby implements Serializable{
 
     public String getDescription() {
         return description;
-    }
-
-    public Set<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(Set<Contact> contacts) {
-        this.contacts = contacts;
     }
 
     public void setTitle(String title) {
@@ -70,11 +50,10 @@ public class Hobby implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Hobby hobby = (Hobby) o;
+        HobbyDTO hobby = (HobbyDTO) o;
 
-        if (id != hobby.id) return false;
+        return id == hobby.id;
 
-        return true;
     }
 
     @Override
@@ -88,7 +67,6 @@ public class Hobby implements Serializable{
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", contacts=" + contacts +
                 '}';
     }
 }

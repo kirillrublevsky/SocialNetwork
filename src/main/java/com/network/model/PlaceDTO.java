@@ -1,38 +1,20 @@
 package com.network.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
-@Entity
-@Table(name = "place")
-public class Place implements Serializable{
+public class PlaceDTO implements Serializable {
 
-    @Id
-    @Column(name = "place_id")
-    @GeneratedValue
     private long id;
 
-    @Column(name = "title")
     private String title;
-    @Column(name = "description")
     private String description;
-    @Column(name = "longitude")
     private double longitude;
-    @Column(name = "latitude")
     private double latitude;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "places")
-    private Set<Contact> contacts;
-
-    public Place() {}
+    public PlaceDTO() {}
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -51,12 +33,8 @@ public class Place implements Serializable{
         return description;
     }
 
-    public Set<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(Set<Contact> contacts) {
-        this.contacts = contacts;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setTitle(String title) {
@@ -96,11 +74,10 @@ public class Place implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Place place = (Place) o;
+        PlaceDTO place = (PlaceDTO) o;
 
-        if (id != place.id) return false;
+        return id == place.id;
 
-        return true;
     }
 
     @Override
@@ -116,7 +93,6 @@ public class Place implements Serializable{
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", description='" + description + '\'' +
-                ", contacts=" + contacts +
                 '}';
     }
 }
