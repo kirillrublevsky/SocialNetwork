@@ -36,7 +36,7 @@ public class MessageDaoImpl implements MessageDao {
     public List<Message> getConversation(long contactOneId, long contactTwoId){
         Query query = sessionFactory.getCurrentSession().createQuery(
                 "SELECT m FROM Message m WHERE (m.fromContact.id = :contactOneId AND m.toContact.id = :contactTwoId)" +
-                        " AND (m.fromContact.id = :contactTwoId AND m.toContact.id = :contactOneId)");
+                        " OR (m.fromContact.id = :contactTwoId AND m.toContact.id = :contactOneId)");
         query.setParameter("contactOneId", contactOneId);
         query.setParameter("contactTwoId", contactTwoId);
         return query.list();

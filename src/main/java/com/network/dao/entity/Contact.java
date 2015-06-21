@@ -141,8 +141,10 @@ public class Contact implements Serializable {
     }
 
     public Set<Message> getMessages() {
-        return messages;
-    }
+        if(messages == null){
+            messages = new HashSet<Message>();
+        }
+        return messages;    }
 
     private boolean isNull(Object object){
         return object != null;

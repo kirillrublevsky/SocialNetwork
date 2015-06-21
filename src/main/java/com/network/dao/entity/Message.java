@@ -19,8 +19,8 @@ public class Message implements Serializable {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime date;
 
-    @ManyToOne
-    @JoinColumn(name="contact_id")
+    @ManyToOne(targetEntity = Contact.class)
+    @JoinColumn(name="from_contact", referencedColumnName = "contact_id")
     private Contact fromContact;
 
     @Column(name = "to_contact")
